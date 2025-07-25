@@ -9,12 +9,23 @@
 // 콘솔 창에 그리기(How?What?).
 // 엔진의 이벤트 함수 호출.
 // BeginPlay/Tick/Draw.
+
+// 색상.
+enum class Color : int
+{
+	Blue = 1,
+	Green = 2,
+	Red = 4,
+	White = Red | Green | Blue,
+	Intensity = 8,
+};
+
 class Engine_API Actor : public RTTI
 {
 	RTTI_DECLARATIONS(Actor, RTTI)
 
 public:
-	Actor();
+	Actor(const char image = ' ', Color color = Color::White);
 	virtual ~Actor();
 
 	// 이벤트 함수.
@@ -31,12 +42,19 @@ public:
 	// BeginPlay 호출 여부 확인.
 	inline bool HasBeganPlay() const { return hasBeganPlay; }
 
+	// 위치 설정/값 읽는 함수.
+	void SetPosition(const Vector2& newPosition);
+	Vector2 Position() const;
+
 private:
 	// 개체의 위치.
 	Vector2 position;
 
 	// 그릴 값.
 	char image = ' ';
+
+	// 텍스트 색상 값.
+	Color color;
 
 	// BeginPlay 호출이 되었는지 확인.
 	bool hasBeganPlay = false;

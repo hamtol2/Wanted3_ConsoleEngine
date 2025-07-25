@@ -1,6 +1,7 @@
 #include "Engine.h"
 #include <iostream>
 #include "Level/Level.h"
+#include <Windows.h>
 //#include <chrono>
 
 // 2가지.
@@ -14,6 +15,16 @@ Engine* Engine::instance = nullptr;
 Engine::Engine()
 {
 	instance = this;
+
+	// 콘솔 커서 끄기.
+	CONSOLE_CURSOR_INFO info;
+	info.bVisible = false;
+	info.dwSize = 1;
+
+	SetConsoleCursorInfo(
+		GetStdHandle(STD_OUTPUT_HANDLE),
+		&info
+	);
 }
 
 Engine::~Engine()
@@ -86,6 +97,12 @@ void Engine::Run()
 			}
 		}
 	}
+
+	// 정리(텍스트 색상 원래대로 돌려놓기).
+	SetConsoleTextAttribute(
+		GetStdHandle(STD_OUTPUT_HANDLE),
+		FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED
+	);
 }
 
 void Engine::AddLevel(Level* newLevel)
@@ -186,6 +203,11 @@ void Engine::Tick(float deltaTime)
 
 void Engine::Render()
 {
+	SetConsoleTextAttribute(
+		GetStdHandle(STD_OUTPUT_HANDLE),
+		FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED
+	);
+
 	if (mainLevel)
 	{
 		mainLevel->Render();
