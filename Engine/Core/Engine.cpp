@@ -8,8 +8,12 @@
 // 단순 입력 처리(키보드).
 // 타이머(시간 계산).
 
+// 정적 변수 초기화.
+Engine* Engine::instance = nullptr;
+
 Engine::Engine()
 {
+	instance = this;
 }
 
 Engine::~Engine()
@@ -118,6 +122,11 @@ void Engine::Quit()
 	isQuit = true;
 }
 
+Engine& Engine::Get()
+{
+	return *instance;
+}
+
 void Engine::ProcessInput()
 {
 	// 키 입력 확인.
@@ -169,10 +178,10 @@ void Engine::Tick(float deltaTime)
 		mainLevel->Tick(deltaTime);
 	}
 
-	if (GetKeyDown(VK_ESCAPE))
-	{
-		Quit();
-	}
+	//if (GetKeyDown(VK_ESCAPE))
+	//{
+	//	Quit();
+	//}
 }
 
 void Engine::Render()
