@@ -1,6 +1,13 @@
 #include "SokobanLevel.h"
-#include <iostream>
 #include "Math/Vector2.h"
+
+#include "Actor/Player.h"
+#include "Actor/Wall.h"
+#include "Actor/Ground.h"
+#include "Actor/Box.h"
+#include "Actor/Target.h"
+
+#include <iostream>
 
 SokobanLevel::SokobanLevel()
 {
@@ -35,9 +42,9 @@ void SokobanLevel::ReadMapFile(const char* filename)
 	memset(buffer, 0, fileSize + 1);
 	size_t readSize = fread(buffer, sizeof(char), fileSize, file);
 
-	if (fileSize == readSize)
+	if (fileSize != readSize)
 	{
-		std::cout << "fileSize = readSize.\n";
+		std::cout << "fileSize is not matched with readSize.\n";
 	}
 
 	// 배열 순회를 위한 인덱스 변수.
@@ -72,21 +79,30 @@ void SokobanLevel::ReadMapFile(const char* filename)
 		switch (mapCharacter)
 		{
 		case '#':
-			std::cout << "#";
+			AddActor(new Wall(position));
+			//std::cout << "#";
 			break;
 		case '.':
-			std::cout << ".";
+			AddActor(new Ground(position));
+			//std::cout << ".";
 			break;
 		case 'p':
-			std::cout << "p";
+			// Player 액터 생성.
+			AddActor(new Player(position));
+			//std::cout << "p";
 			break;
 		case 'b':
-			std::cout << "b";
+			AddActor(new Box(position));
+			//std::cout << "b";
 			break;
 		case 't':
-			std::cout << "t";
+			AddActor(new Target(position));
+			//std::cout << "t";
 			break;
 		}
+
+		// x 좌표 증가 처리.
+		++position.x;
 	}
 
 	// 버퍼 해제.
