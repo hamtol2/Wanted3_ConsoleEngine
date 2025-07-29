@@ -33,9 +33,14 @@ struct MenuItem
 
 class MenuLevel : public Level
 {
+	RTTI_DECLARATIONS(MenuLevel, Level)
+
 public:
 	MenuLevel();
 	~MenuLevel();
+
+	virtual void Tick(float deltaTime) override;
+	virtual  void Render() override;
 
 private:
 
