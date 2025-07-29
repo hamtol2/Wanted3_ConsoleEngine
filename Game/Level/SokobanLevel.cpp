@@ -7,11 +7,28 @@
 #include "Actor/Box.h"
 #include "Actor/Target.h"
 
+#include "Utils/Utils.h"
+
 #include <iostream>
 
 SokobanLevel::SokobanLevel()
 {
 	ReadMapFile("Map.txt");
+}
+
+void SokobanLevel::Render()
+{
+	super::Render();
+
+	if (isGameClear)
+	{
+		Utils::SetConsolePosition({ 30, 0 });
+		Utils::SetConsoleTextColor(
+			static_cast<WORD>(Color::White)
+		);
+
+		std::cout << "Game Clear!";
+	}
 }
 
 void SokobanLevel::ReadMapFile(const char* filename)
