@@ -1,13 +1,9 @@
 #include "Engine.h"
 #include <iostream>
-#include "Level/Level.h"
 #include <Windows.h>
-//#include <chrono>
 
-// 2가지.
-// 윈도우즈.
-// 단순 입력 처리(키보드).
-// 타이머(시간 계산).
+#include "Level/Level.h"
+#include "Utils/Utils.h"
 
 // 정적 변수 초기화.
 Engine* Engine::instance = nullptr;
@@ -99,8 +95,12 @@ void Engine::Run()
 	}
 
 	// 정리(텍스트 색상 원래대로 돌려놓기).
-	SetConsoleTextAttribute(
-		GetStdHandle(STD_OUTPUT_HANDLE),
+	//SetConsoleTextAttribute(
+	//	GetStdHandle(STD_OUTPUT_HANDLE),
+	//	FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED
+	//);
+
+	Utils::SetConsoleTextColor(
 		FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED
 	);
 }
@@ -203,8 +203,12 @@ void Engine::Tick(float deltaTime)
 
 void Engine::Render()
 {
-	SetConsoleTextAttribute(
-		GetStdHandle(STD_OUTPUT_HANDLE),
+	//SetConsoleTextAttribute(
+	//	GetStdHandle(STD_OUTPUT_HANDLE),
+	//	FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED
+	//);
+
+	Utils::SetConsoleTextColor(
 		FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED
 	);
 
